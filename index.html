@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CS 578 Calculator</title>
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		.calculator {
+			margin: 1em;
+		}
+		h2 {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="pure-g calculator">
+		<div class="pure-u-1-1">
+			<h2>Calculate (a^b) mod c</h2>
+			<form class="pure-form pure-form-stacked">
+			    <fieldset>
+			        <div class="pure-control-group">
+			            <label for="a">Input a:</label>
+			            <input id="a" type="number" placeholder="a">
+			        </div>
+
+			        <div class="pure-control-group">
+			            <label for="b">Input b:</label>
+			            <input id="b" type="number" placeholder="b">
+			        </div>
+
+			        <div class="pure-control-group">
+			            <label for="c">Input c:</label>
+			            <input id="c" type="number" placeholder="c">
+			        </div>
+
+			        <div class="pure-control-group">
+			            <label for="result">Result: </label>
+			            <span id="mod"></span>
+			        </div>
+
+			        <div class="pure-controls">
+			            <button type="button" class="pure-button pure-button-primary" onclick="calculateMod()">Calculate</button>
+			        </div>
+			    </fieldset>
+			</form>
+		</div>		
+	</div>
+	<script>
+		function mod(a, b, c) {
+			var answer = 1;
+			a = a % c;
+			while (b !== 0) {
+				if (b & 1) {
+					answer = (answer * a) % c;
+				}
+				b >>= 1;
+				a = (a * a) % c;
+			}
+			return answer;
+		}
+
+		function calculateMod(){
+			var input_a = document.getElementById("a").value,
+				input_b = document.getElementById("b").value,
+				input_c = document.getElementById("c").value;
+			var result = mod(input_a, input_b, input_c);
+			document.getElementById("mod").innerHTML = result;
+		}
+	</script>
+</body>
+</html>
